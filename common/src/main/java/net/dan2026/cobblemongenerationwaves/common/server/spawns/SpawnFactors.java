@@ -29,7 +29,7 @@ import java.util.Set;
 
 /**
  * Handles spawning influence logic for Cobblemon, restricting spawns based on active generation waves.
- * This class serves as the cache for generation data retrieved from disk. Done to separate the expensive I/O tasks.
+ * This class caches generation data to avoid repetitive disk access during spawn checks.
  */
 
 public class SpawnFactors implements SpawningInfluence {
@@ -39,7 +39,7 @@ public class SpawnFactors implements SpawningInfluence {
      * This provides O(1) lookups during the intensive spawn checking process.
      */
 
-    private static Set<String> cachedGenerations = new HashSet<>();
+    private static final Set<String> cachedGenerations = new HashSet<>();
 
     /*
     AffectWeight needs overriding to increase weights.
@@ -82,24 +82,18 @@ public class SpawnFactors implements SpawningInfluence {
     }
 
     /**
-     * Resolves a species from a name string using the Cobblemon registry.
+     * Gets a species object by its name using the Cobblemon registry.
      *
      * @param name The species name (e.g., "aerodactyl").
      * @return The {@link Species} object, or null if no match exists.
      */
-
     @Nullable
     private Species getSpeciesByName(@NotNull String name) {
-        try {
-            return PokemonSpecies.getByName(name);
-        } catch (Exception e) {
-            Cobblemon.LOGGER.error("Error retrieving species by name: {}", name, e);
-            return null;
-        }
+        return PokemonSpecies.getByName(name);
     }
 
     /**
-     * Adds a generation to the persistent data and cache.
+     * Adds a generation to persistent storage and updates the runtime cache.
      *
      * @param level The server level.
      * @param gen   The generation string to add.
@@ -112,7 +106,7 @@ public class SpawnFactors implements SpawningInfluence {
     }
 
     /**
-     * Removes a generation from the persistent data and updated the cache.
+     * Removes a generation from persistent storage and updates the runtime cache.
      *
      * @param level The server level.
      * @param gen   The generation string to remove.
@@ -124,7 +118,7 @@ public class SpawnFactors implements SpawningInfluence {
     }
 
     /**
-     * Gets all allowed generations directly from the persistent world data.
+     * Gets all allowed generations saved in the persistent world data.
      *
      * @param level The server level.
      * @return An unmodifiable set of allowed generations.
@@ -136,7 +130,7 @@ public class SpawnFactors implements SpawningInfluence {
 
 
     /**
-     * Updates the static active generations cache from the level's persistent data.
+     * Updates the runtime cache using the data saved in the persistent world storage.
      *
      * @param serverLevel the server level containing the persistent data
      */
@@ -153,8 +147,8 @@ public class SpawnFactors implements SpawningInfluence {
     }
 
     /**
-     * Provides a read-only view of the current runtime spawn cache.
-     * @return An unmodifiable view of the current active generation strings.
+     * Gets the current runtime spawn cache.
+     * @return An unmodifiable view of the currently cached generation strings.
      */
 
     public static Set<String> getCachedGenerations() {
