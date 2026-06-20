@@ -15,6 +15,7 @@ import net.dan2026.cobblemongenerationwaves.common.server.spawns.SpawnFactors;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
 
+
 public class ServerEvents {
 
     public static void onServerStarted(MinecraftServer server) {
@@ -22,6 +23,7 @@ public class ServerEvents {
         ServerLevel overworld = server.overworld();
 
         SpawnFactors.updateCachedGenerations(overworld);
-    }   
+
+    }
 
 }

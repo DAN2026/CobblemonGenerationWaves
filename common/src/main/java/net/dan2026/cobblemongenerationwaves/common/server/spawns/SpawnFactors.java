@@ -41,6 +41,9 @@ public class SpawnFactors implements SpawningInfluence {
 
     private static final Set<String> cachedGenerations = new HashSet<>();
 
+    private static final int TOTAL_GENS = 9;
+    private static float currentWeightMultiplier = 1.0f;
+
     /*
     AffectWeight needs overriding to increase weights.
     Math involved for proper scaling dependent on total generations active.
@@ -50,7 +53,7 @@ public class SpawnFactors implements SpawningInfluence {
     /**
      * Evaluates whether a Pokémon is allowed to spawn based on its generation labels.
      *
-     * @param detail The spawn detail being processed by the Cobblemon spawning engine.
+     * @param detail            The spawn detail being processed by the Cobblemon spawning engine.
      * @param spawnablePosition The context of the spawn attempt.
      * @return True if the Pokémon matches an active generation, false otherwise.
      */
@@ -58,26 +61,55 @@ public class SpawnFactors implements SpawningInfluence {
     @Override
     public boolean affectSpawnable(@NotNull SpawnDetail detail, @NotNull SpawnablePosition spawnablePosition) {
 
-        if (!(detail instanceof PokemonSpawnDetail pokemonDetail)) {
+        if (!(detail instanceof PokemonSpawnDetail)) {
             return true;
         }
 
-        String speciesName = pokemonDetail.getPokemon().getSpecies();
+        return matchesActiveGeneration(detail);
+    }
 
-        if (speciesName == null) return false;
+    @Override
+    public float affectWeight(@NotNull SpawnDetail detail, @NotNull SpawnablePosition spawnablePosition, float weight) {
 
-        Species species = getSpeciesByName(speciesName);
+        if (!(detail instanceof PokemonSpawnDetail pokemonDetail)) {
+            return weight;
+        }
 
-        if (species == null) {
-            Cobblemon.LOGGER.warn("Could not find species with name: {}", speciesName);
+        if (matchesActiveGeneration(detail)) {
+
+            float finalWeight = weight * currentWeightMultiplier;
+
+            String speciesName = pokemonDetail.getPokemon().getSpecies();
+
+            Cobblemon.LOGGER.info("Active Gen Spawn: {} | Multiplier: {} | Final Weight: {}", speciesName, currentWeightMultiplier, finalWeight);
+
+            return finalWeight;
+        }
+
+        return 0.0f;
+    }
+
+
+    /**
+     * Determines if a spawn detail matches any of the currently enabled generations.
+     *
+     * @param detail The spawn detail to check.
+     * @return True if the Pokémon matches an active generation, false otherwise.
+     */
+
+    private boolean matchesActiveGeneration(@NotNull SpawnDetail detail) {
+        if (!(detail instanceof PokemonSpawnDetail pokemonDetail)) {
             return false;
         }
 
-        return species
-                .getLabels()
-                .stream()
-                .anyMatch(label -> cachedGenerations
-                        .stream()
+        String speciesName = pokemonDetail.getPokemon().getSpecies();
+        if (speciesName == null) return false;
+
+        Species species = getSpeciesByName(speciesName);
+        if (species == null) return false;
+
+        return species.getLabels().stream()
+                .anyMatch(label -> cachedGenerations.stream()
                         .anyMatch(label::startsWith));
     }
 
@@ -87,6 +119,7 @@ public class SpawnFactors implements SpawningInfluence {
      * @param name The species name (e.g., "aerodactyl").
      * @return The {@link Species} object, or null if no match exists.
      */
+
     @Nullable
     private Species getSpeciesByName(@NotNull String name) {
         return PokemonSpecies.getByName(name);
@@ -115,6 +148,7 @@ public class SpawnFactors implements SpawningInfluence {
     public static void removeGeneration(@NotNull ServerLevel level, @NotNull String gen) {
         GenerationData.get(level).removePersistentGeneration(gen);
         updateCachedGenerations(level);
+
     }
 
     /**
@@ -130,7 +164,8 @@ public class SpawnFactors implements SpawningInfluence {
 
 
     /**
-     * Updates the runtime cache using the data saved in the persistent world storage.
+     * Updates the cache using the data saved in the persistent world storage and
+     * updates the weight multiplier to scale accordingly.
      *
      * @param serverLevel the server level containing the persistent data
      */
@@ -142,17 +177,27 @@ public class SpawnFactors implements SpawningInfluence {
         cachedGenerations.clear();
         cachedGenerations.addAll(persistentGens);
 
-        Cobblemon.LOGGER.info("Generation Cache has been updated. Generations: {}", persistentGens);
+        int activeCount = cachedGenerations.size();
+        currentWeightMultiplier = (float) (TOTAL_GENS - activeCount);
 
+        Cobblemon.LOGGER.info("Generation Cache updated. Active: {}, Multiplier: {}", activeCount, currentWeightMultiplier);
     }
 
     /**
      * Gets the current runtime spawn cache.
+     *
      * @return An unmodifiable view of the currently cached generation strings.
      */
 
     public static Set<String> getCachedGenerations() {
         return Collections.unmodifiableSet(cachedGenerations);
+    }
+
+    private @NotNull String getGenerationFromLabels(@NotNull Species species) {
+        return species.getLabels().stream()
+                .filter(label -> cachedGenerations.stream().anyMatch(label::startsWith))
+                .findFirst()
+                .orElse("unknown");
     }
 
 
