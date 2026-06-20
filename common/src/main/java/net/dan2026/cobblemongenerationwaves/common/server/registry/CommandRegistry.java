@@ -9,7 +9,7 @@
  *  If not, you can obtain a copy at [https://github.com/DAN2026/CobblemonGenerationWaves/blob/master/LICENSE].
  */
 
-package net.dan2026.cobblemongenerationwaves.common;
+package net.dan2026.cobblemongenerationwaves.common.server.registry;
 
 import com.mojang.brigadier.CommandDispatcher;
 import net.dan2026.cobblemongenerationwaves.common.server.commands.ActiveGenerationsCommand;
@@ -17,11 +17,9 @@ import net.dan2026.cobblemongenerationwaves.common.server.commands.DisableGenera
 import net.dan2026.cobblemongenerationwaves.common.server.commands.EnableGenerationCommand;
 import net.minecraft.commands.CommandSourceStack;
 
-public final class CommonServer {
+public class CommandRegistry {
 
-    public static final String MOD_ID = "cobblemongenerationwaves";
-
-    public static void registerAll(CommandDispatcher<CommandSourceStack> dispatcher) {
+    public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
         EnableGenerationCommand.register(dispatcher);
         DisableGenerationCommand.register(dispatcher);
         ActiveGenerationsCommand.register(dispatcher);

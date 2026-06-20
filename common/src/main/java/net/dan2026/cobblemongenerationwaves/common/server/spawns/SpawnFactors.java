@@ -22,6 +22,7 @@ import org.apache.logging.log4j.Level;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -127,4 +128,12 @@ public class SpawnFactors implements SpawningInfluence {
         ALLOWED_GENERATIONS.clear();
         ALLOWED_GENERATIONS.addAll(newGenerations);
     }
+
+    public static void addGeneration(String gen) { ALLOWED_GENERATIONS.add(gen); }
+
+    public static void removeGeneration(String gen) { ALLOWED_GENERATIONS.remove(gen); }
+
+    public static Set<String> getAllowedGenerations() { return Collections.unmodifiableSet(ALLOWED_GENERATIONS); }
+
+
 }

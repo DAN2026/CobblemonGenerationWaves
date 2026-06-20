@@ -12,7 +12,7 @@
 package net.dan2026.cobblemongenerationwaves.fabric;
 
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawnerFactory;
-import net.dan2026.cobblemongenerationwaves.common.server.commands.ToggleGenerationsCommand;
+import net.dan2026.cobblemongenerationwaves.common.server.registry.CommandRegistry;
 import net.dan2026.cobblemongenerationwaves.common.server.spawns.SpawnFactors;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
@@ -29,7 +29,7 @@ public class FabricServer implements ModInitializer {
                 (dispatcher,
                  registryAccess,
                  environment) -> {
-                    ToggleGenerationsCommand.register(dispatcher);
+                    CommandRegistry.register(dispatcher);
                 });
     }
 

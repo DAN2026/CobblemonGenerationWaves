@@ -21,6 +21,7 @@ import net.minecraft.network.chat.Component;
 import java.util.HashSet;
 import java.util.Set;
 
+@Deprecated
 public class ToggleGenerationsCommand {
 
     private static final Set<String> currentGenerations = new HashSet<>(Set.of("gen1", "gen8"));
@@ -31,7 +32,6 @@ public class ToggleGenerationsCommand {
                 .then(Commands.argument("generation", StringArgumentType.string())
                         .executes(context -> {
                             String gen = StringArgumentType.getString(context, "generation");
-
                             if (currentGenerations.contains(gen)) {
                                 currentGenerations.remove(gen);
                                 context.getSource().sendSuccess(() -> Component.literal("Disabled " + gen), true);
