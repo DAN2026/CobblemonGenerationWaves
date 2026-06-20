@@ -40,7 +40,7 @@ public class EnableGenerationCommand {
                                 throw INVALID_GEN.create();
                             }
 
-                            if (SpawnFactors.getAllowedGenerations(level).contains(gen)) {
+                            if (SpawnFactors.getPersistentGenerations(level).contains(gen)) {
                                 c.getSource().sendSuccess(() -> StringUtility.createWarning(gen, "is already enabled"), false);
                                 return 0;
                             }

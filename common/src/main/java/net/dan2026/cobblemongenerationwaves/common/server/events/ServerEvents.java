@@ -21,7 +21,7 @@ public class ServerEvents {
 
         ServerLevel overworld = server.overworld();
 
-        SpawnFactors.updateActiveGens(overworld);
+        SpawnFactors.updateCachedGenerations(overworld);
     }   
 
 }

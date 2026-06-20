@@ -108,7 +108,7 @@ public class SpawnFactors implements SpawningInfluence {
     public static void addGeneration(@NotNull ServerLevel level, @NotNull String gen) {
         GenerationData data = GenerationData.get(level);
         data.addPersistentGeneration(gen);
-        updateActiveGens(level);
+        updateCachedGenerations(level);
     }
 
     /**
@@ -120,7 +120,7 @@ public class SpawnFactors implements SpawningInfluence {
 
     public static void removeGeneration(@NotNull ServerLevel level, @NotNull String gen) {
         GenerationData.get(level).removePersistentGeneration(gen);
-        updateActiveGens(level);
+        updateCachedGenerations(level);
     }
 
     /**
@@ -130,7 +130,7 @@ public class SpawnFactors implements SpawningInfluence {
      * @return An unmodifiable set of allowed generations.
      */
 
-    public static Set<String> getAllowedGenerations(@NotNull ServerLevel level) {
+    public static Set<String> getPersistentGenerations(@NotNull ServerLevel level) {
         return Collections.unmodifiableSet(GenerationData.get(level).getPersistentGenerations());
     }
 
@@ -141,7 +141,7 @@ public class SpawnFactors implements SpawningInfluence {
      * @param serverLevel the server level containing the persistent data
      */
 
-    public static void updateActiveGens(ServerLevel serverLevel) {
+    public static void updateCachedGenerations(ServerLevel serverLevel) {
 
         Set<String> persistentGens = GenerationData.get(serverLevel).getPersistentGenerations();
 

@@ -41,7 +41,7 @@ public class DisableGenerationCommand {
                                 throw INVALID_GEN.create();
                             }
 
-                            if (!SpawnFactors.getAllowedGenerations(level).contains(gen)) {
+                            if (!SpawnFactors.getPersistentGenerations(level).contains(gen)) {
                                 c.getSource().sendSuccess(() -> StringUtility.createWarning(gen, "is already disabled"), false);
                                 return 0;
                             }

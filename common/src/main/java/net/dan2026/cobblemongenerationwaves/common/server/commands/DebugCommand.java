@@ -58,7 +58,7 @@ public final class DebugCommand {
         ServerLevel overworld = context.getSource().getServer().overworld();
 
         Set<String> cachedGens = SpawnFactors.getCachedGenerations();
-        Set<String> persistentGens = SpawnFactors.getAllowedGenerations(overworld);
+        Set<String> persistentGens = SpawnFactors.getPersistentGenerations(overworld);
 
         String cachedJoined = String.join(", ", cachedGens);
         String persistentJoined = String.join(", ", persistentGens);
