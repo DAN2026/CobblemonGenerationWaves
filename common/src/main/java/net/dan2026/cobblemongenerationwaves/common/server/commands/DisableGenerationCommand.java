@@ -15,6 +15,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.SimpleCommandExceptionType;
 import net.dan2026.cobblemongenerationwaves.common.server.spawns.SpawnFactors;
+import net.dan2026.cobblemongenerationwaves.common.server.utility.StringUtility;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.network.chat.Component;
@@ -25,20 +26,30 @@ public class DisableGenerationCommand {
             new SimpleCommandExceptionType(Component.literal("That is an invalid generation."));
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("disableGeneration")
+
+        dispatcher.register(Commands.literal("disablegeneration")
                 .requires(s -> s.hasPermission(2))
                 .then(Commands.argument("gen", StringArgumentType.word())
                         .suggests(CommandSuggestions.GENERATIONS)
                         .executes(c -> {
+
                             String gen = StringArgumentType.getString(c, "gen");
 
-                            if (!CommandSuggestions.VALID_GENS.contains(gen)) {
+                            if (!CommandSuggestions.VALID_GENERATION_SET.contains(gen)) {
                                 throw INVALID_GEN.create();
                             }
 
+                            if (!SpawnFactors.getAllowedGenerations().contains(gen)) {
+                                c.getSource().sendSuccess(() -> StringUtility.createWarning(gen, "is already disabled"), false);
+                                return 0;
+                            }
+
                             SpawnFactors.removeGeneration(gen);
-                            c.getSource().sendSuccess(() -> Component.literal("Disabled generation: " + gen), true);
+
+                            c.getSource().sendSuccess(() -> StringUtility.createStatusMessage(gen, false), true);
+
                             return 1;
+
                         })));
     }
 }

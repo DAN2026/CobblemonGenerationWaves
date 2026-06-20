@@ -15,6 +15,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import net.dan2026.cobblemongenerationwaves.common.server.commands.ActiveGenerationsCommand;
 import net.dan2026.cobblemongenerationwaves.common.server.commands.DisableGenerationCommand;
 import net.dan2026.cobblemongenerationwaves.common.server.commands.EnableGenerationCommand;
+import net.dan2026.cobblemongenerationwaves.common.server.commands.HelpCommand;
 import net.minecraft.commands.CommandSourceStack;
 
 public class CommandRegistry {
@@ -23,6 +24,7 @@ public class CommandRegistry {
         EnableGenerationCommand.register(dispatcher);
         DisableGenerationCommand.register(dispatcher);
         ActiveGenerationsCommand.register(dispatcher);
+        HelpCommand.register(dispatcher);
     }
 
 }
