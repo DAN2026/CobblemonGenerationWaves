@@ -1,18 +1,18 @@
-/**
+/*
  *
- * CobblemonGenerationWaves - A NeoForge Minecraft Mod.
- * <p>
+ * Cobblemon: Generation Spawning - A NeoForge Minecraft Mod.
+ *
  * Copyright (c) 2026 DAN2026. All rights reserved.
- * <p>
- * This software is licensed under the CobblemonGenerationWaves Licence v1.0.
- * A copy of this Licence should have been included with this software.
- * If not, you can obtain a copy at [https://github.com/DAN2026/CobblemonGenerationWaves/blob/master/LICENSE].
+ *
+ * This software is licensed under the CobblemonGenerationSpawning License v1.0.
+ *  A copy of this License should have been included with this software.
+ *  If not, you can obtain a copy at [https://github.com/DAN2026/CobblemonGenerationSpawning/blob/master/LICENSE].
  */
-package net.dan2026.cobblemongenerationwaves.common.server.commands;
+package net.dan2026.cobblemongenerationspawns.common.server.commands;
 
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.context.CommandContext;
-import net.dan2026.cobblemongenerationwaves.common.server.spawns.SpawnFactors;
+import net.dan2026.cobblemongenerationspawns.common.server.spawns.SpawnFactors;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
@@ -41,9 +41,9 @@ public final class DebugCommand {
      */
 
     public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
-        dispatcher.register(Commands.literal("generationwave")
-                .requires(source -> source.hasPermission(2))
+        dispatcher.register(Commands.literal("generation")
                 .then(Commands.literal("debug")
+                        .requires(s -> s.hasPermission(2))
                         .executes(DebugCommand::execute)));
     }
 

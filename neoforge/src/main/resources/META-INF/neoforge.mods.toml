@@ -4,30 +4,30 @@ loaderVersion = "[1,)"
 license = "All Rights Reserved"
 
 [[mods]]
-modId = "cobblemongenerationwaves"
+modId = "cobblemongenerationspawns"
 version = "${version}"
 displayName = "Cobblemon: Generation Waves"
 authors = "DAN2026"
 description = '''
-A Cobblemon Side Mod that spawns cobblemon in waves based off of generation they are from.
+A Cobblemon Side Mod that allows you to enable / disable certain generations from spawning.
 '''
 #logoFile = ""
 
-[[dependencies.cobblemongenerationwaves]]
+[[dependencies.cobblemongenerationspawns]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.21.1]"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.cobblemongenerationwaves]]
+[[dependencies.cobblemongenerationspawns]]
 modId = "neoforge"
 mandatory = true
 versionRange = "[21.1.182,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.cobblemongenerationwaves]]
+[[dependencies.cobblemongenerationspawns]]
 modId = "cobblemon"
 mandatory = true
 versionRange = "[1.7.3,)"

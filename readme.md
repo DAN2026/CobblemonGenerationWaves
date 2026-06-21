@@ -1,9 +1,9 @@
-# Cobblemon: Generation Waves
+# Cobblemon: Generation Spawns
 ![Minecraft Version](https://img.shields.io/badge/Minecraft-1.21.1-blue)
 ![Loader](https://img.shields.io/badge/Loader-NeoForge/Fabric-orange)
-![License](https://img.shields.io/badge/LICENSE-CobblemonGenerationWaves%20v1.0-green)
+![License](https://img.shields.io/badge/LICENSE-CobblemonGenerationSpawns%20v1.0-green)
 
-Cobblemon: Generation Waves is a Minecraft mod designed to manage and restrict Pokémon spawning behavior in your game world based on generation "waves." This mod is built to be cross-platform, supporting both **Fabric** and **NeoForge**.
+Cobblemon: Generation Spawns is a Minecraft mod designed to manage and restrict Pokémon spawning behavior in your game world based on generation "waves." This mod is built to be cross-platform, supporting both **Fabric** and **NeoForge**.
 
 ## Features
 - **Dynamic Spawn Filtering:** Control which Pokémon generations (e.g., `gen1`, `gen8`) are allowed to spawn in your world.
@@ -13,13 +13,13 @@ Cobblemon: Generation Waves is a Minecraft mod designed to manage and restrict P
 
 ## Commands & Usage
 
-| Command | Arguments | Permission | Description | Example Usage |
-| :--- | :--- | :--- | :--- | :--- |
-| `/enablegeneration` | `<generation>` | OP Level 2 | Permanently enables spawning for the specified generation string. | `/enablegeneration gen1` |
-| `/disablegeneration` | `<generation>` | OP Level 2 | Disables spawning for the specified generation string. | `/disablegeneration gen1` |
-| `/activegenerations` | *None* | **All Players** | Lists all currently active Pokémon generations allowed to spawn. | `/activegenerations` |
-| `/generationwave debug` | *None* | OP Level 2 | Displays current in-memory cache states and persistent disk storage contents. | `/generationwave debug` |
-| `/generationwave help` | *None* | OP Level 2 | Prints a quick-reference summary of syntax and instructions for administering generation waves. | `/generationwave help` |
+| Command               | Arguments | Permission | Description | Example Usage |
+|:----------------------| :--- | :--- | :--- | :--- |
+| `/generation enable`  | `<generation>` | OP Level 2 | Permanently enables spawning for the specified generation string. | `/enablegeneration gen1` |
+| `/generation disable` | `<generation>` | OP Level 2 | Disables spawning for the specified generation string. | `/disablegeneration gen1` |
+| `/generation active`  | *None* | **All Players** | Lists all currently active Pokémon generations allowed to spawn. | `/activegenerations` |
+| `/generation debug`   | *None* | OP Level 2 | Displays current in-memory cache states and persistent disk storage contents. | `/generationwave debug` |
+| `/generation help`    | *None* | OP Level 2 | Prints a quick-reference summary of syntax and instructions for administering generation waves. | `/generationwave help` |
 
 ## Live Configuration & Spawn Calculations
 

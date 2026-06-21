@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
-  "id": "cobblemongenerationwaves",
+  "id": "cobblemongenerationspawns",
   "version": "${version}",
-  "name": "Cobblemon: Generation Waves",
-  "description": "A Cobblemon Side Mod that spawns cobblemon in waves based off of generation they are from.",
+  "name": "Cobblemon: Generation Spawns",
+  "description": "A Cobblemon Side Mod that allows you to enable / disable certain generations from spawning.",
   "authors": [
     "DAN2026"
   ],
@@ -12,7 +12,7 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "net.dan2026.cobblemongenerationwaves.fabric.FabricServer"
+      "net.dan2026.cobblemongenerationspawns.fabric.FabricServer"
     ]
   },
   "depends": {
