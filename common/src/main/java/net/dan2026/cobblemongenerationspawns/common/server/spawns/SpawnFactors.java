@@ -59,19 +59,19 @@ public class SpawnFactors implements SpawningInfluence {
 
         if (detail instanceof PokemonSpawnDetail pokemonDetail) {
 
-//            String name = pokemonDetail.getPokemon().getSpecies();
-//            assert name != null;
-//            Species species = PokemonSpecies.getByName(name);
-//
-//            boolean spawnable = matchesActiveGeneration(pokemonDetail);
-//
-//
-//            if (species != null) {
-//                Set<String> labels = species.getLabels();
-//                Cobblemon.LOGGER.info("DEBUG: Species: {} | Spawnable: {} | Raw Labels: {}", name, spawnable, labels);
-//            } else {
-//                Cobblemon.LOGGER.error("DEBUG: Species object is null for name: {}", name);
-//            }
+            String name = pokemonDetail.getPokemon().getSpecies();
+            assert name != null;
+            Species species = PokemonSpecies.getByName(name);
+
+            boolean spawnable = matchesActiveGeneration(pokemonDetail);
+
+
+            if (species != null) {
+                Set<String> labels = species.getLabels();
+                Cobblemon.LOGGER.info("DEBUG: Species: {} | Spawnable: {} | Raw Labels: {}", name, spawnable, labels);
+            } else {
+                Cobblemon.LOGGER.error("DEBUG: Species object is null for name: {}", name);
+            }
 
             return matchesActiveGeneration(pokemonDetail);
         }

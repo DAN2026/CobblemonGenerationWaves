@@ -32,14 +32,14 @@ public class HelpCommand {
                 .requires(s -> s.hasPermission(2))
                         .executes(c -> {
 
-                            c.getSource().sendSuccess(() -> Component.literal("\nGeneration Wave Commands:\n")
+                            c.getSource().sendSuccess(() -> Component.literal("\nGeneration Spawns Commands:\n")
                                     .withStyle(ChatFormatting.WHITE, ChatFormatting.BOLD), false);
 
-                            c.getSource().sendSuccess(() -> formatHelp("/enablegeneration ", "<generation>", "Enabled spawning for that generation.\n", ChatFormatting.GREEN), false);
+                            c.getSource().sendSuccess(() -> formatHelp("/generation enable ", "<generation>", "Enabled spawning for that generation.\n", ChatFormatting.GREEN), false);
 
-                            c.getSource().sendSuccess(() -> formatHelp("/disablegeneration ", "<generation>", "Disable spawning for that generation.\n", ChatFormatting.RED), false);
+                            c.getSource().sendSuccess(() -> formatHelp("/generation disable ", "<generation>", "Disable spawning for that generation.\n", ChatFormatting.RED), false);
 
-                            c.getSource().sendSuccess(() -> formatHelp("/activegeneration", "", "Shows what generations are active.\n", ChatFormatting.YELLOW), false);
+                            c.getSource().sendSuccess(() -> formatHelp("/generation active", "", "Shows what generations are active.\n", ChatFormatting.YELLOW), false);
 
                             return 1;
                         })));

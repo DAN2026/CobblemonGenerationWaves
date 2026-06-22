@@ -11,6 +11,7 @@
 
 package net.dan2026.cobblemongenerationspawns.common.server.registry;
 
+import com.cobblemon.mod.common.api.spawning.BestSpawner;
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawnerFactory;
 import net.dan2026.cobblemongenerationspawns.common.server.spawns.SpawnFactors;
 import net.minecraft.server.MinecraftServer;
@@ -26,7 +27,11 @@ public class SpawningRegistry {
 
     public static void register(MinecraftServer server) {
 
-        PlayerSpawnerFactory.INSTANCE.getInfluenceBuilders().add(SpawningRegistry::initializeSpawnFactor);
+        final SpawnFactors spawnFactors = new SpawnFactors();
+
+        PlayerSpawnerFactory.INSTANCE.getInfluenceBuilders().add(serverPlayer -> spawnFactors);
+
+        BestSpawner.fishingSpawner.getInfluences().add(spawnFactors);
 
     }
 

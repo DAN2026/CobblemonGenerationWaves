@@ -11,7 +11,6 @@ authors = "DAN2026"
 description = '''
 A Cobblemon Side Mod that allows you to enable / disable certain generations from spawning.
 '''
-#logoFile = ""
 
 [[dependencies.cobblemongenerationspawns]]
 modId = "minecraft"

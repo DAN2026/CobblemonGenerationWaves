@@ -8,7 +8,7 @@
     "DAN2026"
   ],
   "license": "All Rights Reserved",
-  "icon": "assets/example/icon.png",
+  "icon": "assets/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
