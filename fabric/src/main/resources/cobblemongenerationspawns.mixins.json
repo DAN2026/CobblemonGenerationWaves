@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "net.dan2026.cobblemongenerationspawns.fabric.mixins",
+  "compatibilityLevel": "JAVA_21",
+  "refmap": "cobblemongenerationspawns-fabric-refmap.json",
+  "mixins": [
+    "GildedChestBlockMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

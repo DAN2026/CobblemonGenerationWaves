@@ -11,11 +11,11 @@
 
 package net.dan2026.cobblemongenerationspawns.common.server.registry;
 
+import com.cobblemon.mod.common.Cobblemon;
 import com.cobblemon.mod.common.api.spawning.BestSpawner;
 import com.cobblemon.mod.common.api.spawning.spawner.PlayerSpawnerFactory;
 import net.dan2026.cobblemongenerationspawns.common.server.spawns.SpawnFactors;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.level.ServerPlayer;
 
 public class SpawningRegistry {
 
@@ -27,24 +27,26 @@ public class SpawningRegistry {
 
     public static void register(MinecraftServer server) {
 
-        final SpawnFactors spawnFactors = new SpawnFactors();
+        Runnable registerLogic = () -> {
 
-        PlayerSpawnerFactory.INSTANCE.getInfluenceBuilders().add(serverPlayer -> spawnFactors);
+            final SpawnFactors spawnFactors = new SpawnFactors();
 
-        BestSpawner.fishingSpawner.getInfluences().add(spawnFactors);
+            PlayerSpawnerFactory.INSTANCE.getInfluenceBuilders().add(serverPlayer -> spawnFactors);
 
-    }
+            var fishingSpawner = BestSpawner.INSTANCE.getFishingSpawner();
 
-    /**
-     * Creates a new spawn factor.
-     *
-     * @param serverPlayer The player the spawner is affecting.
-     * @return SpawnFactors
-     * @see SpawnFactors
-     */
+            fishingSpawner.getInfluences().add(spawnFactors);
 
-    private static SpawnFactors initializeSpawnFactor(ServerPlayer serverPlayer) {
-        return new SpawnFactors();
+            Cobblemon.LOGGER.info("Generation Spawns: Registered");
+
+        };
+
+        try{
+            registerLogic.run();
+        }catch (Exception exception){
+            Cobblemon.LOGGER.info("Generation Spawns: Waiting for Cobblemon to initialise.");
+        }
+
     }
 
 }
